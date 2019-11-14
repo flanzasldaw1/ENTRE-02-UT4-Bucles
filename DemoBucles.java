@@ -1,17 +1,18 @@
+import java.util.Random;
 /**
- *    @author - 
+ *    @author - Fermin Lanzas
  */
 public class DemoBucles
 {
     private final char ASTERISCO = '*';
     private final char ESPACIO = ' ';
-
+    private Random generador;
     /**
      * Constructor  
      */
     public DemoBucles()
     {
-       
+       generador = new Random();
     }
 
     /**
@@ -26,9 +27,14 @@ public class DemoBucles
      *  Usa bucles while
      */
     public int mayorPotencia2(int numero) {
-        
-        return 0;
-
+        int resultado = 1;
+        while (resultado < numero){            
+            resultado *= 2;
+        }
+        if (resultado > numero){
+            resultado /= 2;
+            }
+        return resultado;
     }
 
     /**
@@ -47,9 +53,15 @@ public class DemoBucles
      *  64 =    64
      */
     public void escribirSumaPotencias(int numero) {
-
-         
-
+        String cadena = String.format("%6s =",numero); 
+        int aux1 = numero;
+        while (aux1 > 1){
+            int aux2 = mayorPotencia2(aux1);
+            aux1 -= aux2;
+            cadena += String.format("%6s",aux2);
+        }
+        cadena += String.format("%6s","1");
+        System.out.println("Si numero = " + numero + cadena);
     }
 
     /**
@@ -64,9 +76,21 @@ public class DemoBucles
      * 
      */
     public void generarAleatorios(int n) {
-
-       
-
+        System.out.println("Nºs aleatorios como suma de potencias de 2");
+        int aleatorio = generador.nextInt(256);
+        int i = 1;
+        System.out.println();
+        while(i <= n && aleatorio != 0){
+            escribirSumaPotencias(aleatorio);
+            aleatorio = generador.nextInt(256);
+            i++;
+        }
+        if (aleatorio == 0){
+            System.out.println("\nBucle terminado porque se ha salido el numero 0");
+        }
+        else {
+            System.out.println("\nBucle terminado porque se han generado ya " + n + " aleatorios");
+        }
     }
 
     /**
@@ -76,7 +100,9 @@ public class DemoBucles
      */
     public void escribirCaracter(int n, char caracter)
     {
-         
+         for(int i = 1; i <= n; i++){
+             System.out.printf("%1s",caracter);
+         }
     }
 
     /**
@@ -86,10 +112,14 @@ public class DemoBucles
      *   Usa bucles for
      */
     public  void mostrarEscalera(int escalones, int alto, int ancho) {
-        System.out.println();
-
-         
-
+        for(int i = 0; i <= escalones - 1; i++){
+            int aux1 = i * ancho;
+            for(int j = 0; j <= alto - 1; j++){                
+                escribirCaracter(aux1, ESPACIO);
+                escribirCaracter(ancho, ASTERISCO);
+                System.out.println();
+            }
+        }
     }
 
 }
